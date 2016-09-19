@@ -27,6 +27,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 /**
  * ClassName : RuleValidator <br>
@@ -67,6 +68,28 @@ public class RuleValidator implements BeanFactoryPostProcessor {
 
     private final static String CNS_ADVISE_SINGLETON = "Please add @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON) to the type definition";
     private final static String CNS_ADVISE_PROTOTYPE = "Please add @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE) to the type definition";
+
+    /** packages that will be validate, if it has not been set, all packages will be validate */
+    private List<String> packages = new LinkedList<String>();
+
+    /**
+     * Description : set the packages which beans managed by spring will be validated in <br>
+     * Create Time: 2016-09-19 <br>
+     * Create by : jimmyblylee@126.com <br>
+     *
+     * @param packagesToScan pattern by "com.xxx.xxx, com.yyy, com.zzz.mmm"
+     */
+    public void setPackagesToScan(String packagesToScan) {
+        if (packagesToScan == null) {
+            return;
+        }
+        packagesToScan = packagesToScan.replaceAll(" ", "");
+        for (String p : packagesToScan.split(",")) {
+            if (!StringUtils.isEmpty(p)) {
+                packages.add(p.endsWith(".") ? p.substring(0, p.length() - 1).toLowerCase() : p.toLowerCase());
+            }
+        }
+    }
 
     /*
      * (non-Javadoc)
@@ -142,20 +165,29 @@ public class RuleValidator implements BeanFactoryPostProcessor {
 
     /**
      * Description : check whether target type should ignore rule validation <br>
-     * Create Time: Apr 15, 2016 <br>
-     * Create by : xiangyu_li@asdc.com.cn <br>
+     * Create Time: 2016-09-19 <br>
+     * Create by : jimmyblylee@126.com <br>
      *
      * @param type the type you want check
      * @return true for the target type wants ignore the rule check
      */
     private boolean isIgnore(Class<?> type) {
-        return type.getAnnotation(IgnoreRule.class) != null;
+        if (packages.size() == 0) {
+            return type.getAnnotation(IgnoreRule.class) != null;
+        } else {
+            for (String p : packages) {
+                if (type.getPackage().getName().startsWith(p)) {
+                    return type.getAnnotation(IgnoreRule.class) != null;
+                }
+            }
+            return true;
+        }
     }
 
     /**
      * Description : target type's scope is defined by "singleton" <br>
-     * Create Time: Apr 15, 2016 <br>
-     * Create by : xiangyu_li@asdc.com.cn <br>
+     * Create Time: 2016-09-19 <br>
+     * Create by : jimmyblylee@126.com <br>
      *
      * @param type the type you want check
      * @return true for the bean is defined by Singleton Scope or no Scope defined with singleton by default
@@ -167,8 +199,8 @@ public class RuleValidator implements BeanFactoryPostProcessor {
 
     /**
      * Description : validate, controller service and dao's scope definition <br>
-     * Create Time: Apr 15, 2016 <br>
-     * Create by : xiangyu_li@asdc.com.cn <br>
+     * Create Time: 2016-09-19 <br>
+     * Create by : jimmyblylee@126.com <br>
      *
      * @see #validateControllersScope()
      * @see #validateServicesScope()
@@ -185,8 +217,8 @@ public class RuleValidator implements BeanFactoryPostProcessor {
 
     /**
      * Description : validate whether the controller, service and dao are named by rule <br>
-     * Create Time: Apr 15, 2016 <br>
-     * Create by : xiangyu_li@asdc.com.cn <br>
+     * Create Time: 2016-09-19 <br>
+     * Create by : jimmyblylee@126.com <br>
      *
      * @see #validateControllersName()
      * @see #validateServicesName()

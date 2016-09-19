@@ -23,15 +23,22 @@ import org.springframework.stereotype.Component;
 @IgnoreRule
 public class ValidatorHolder implements BeanFactoryPostProcessor {
 
-    private RuleValidator validator;
+    private ConfigurableListableBeanFactory factory;
+    private String pts;
+
+    public void setPackagesToScan(String packagesToScan) {
+        this.pts = packagesToScan;
+    }
 
     @Override
     public void postProcessBeanFactory(ConfigurableListableBeanFactory arg0) throws BeansException {
-        validator = new RuleValidator();
-        validator.factory = arg0;
+        this.factory = arg0;
     }
 
     public RuleValidator get() {
+        RuleValidator validator = new RuleValidator();
+        validator.factory = this.factory;
+        validator.setPackagesToScan(pts);
         return validator;
     }
 }
