@@ -9,7 +9,6 @@
         names will be relative to the specified directory. See
         http://checkstyle.sourceforge.net/config.html#Checker
     -->
-    <property name="basedir" value="https://raw.githubusercontent.com/jimmyblylee/EZ.JWAF-Rule/master/dist/checkstyle/"/>
 
     <metadata name="com.atlas-sw.eclipse" value="I like Sydney"/>
 
