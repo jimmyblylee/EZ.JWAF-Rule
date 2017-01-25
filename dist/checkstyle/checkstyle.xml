@@ -8,8 +8,8 @@
         If you set the basedir property below, then all reported file
         names will be relative to the specified directory. See
         http://checkstyle.sourceforge.net/config.html#Checker
-        <property name="basedir" value="${basedir}"/>
     -->
+    <property name="basedir" value="https://raw.githubusercontent.com/jimmyblylee/EZ.JWAF-Rule/master/dist/checkstyle/"/>
 
     <metadata name="com.atlas-sw.eclipse" value="I like Sydney"/>
 
@@ -40,7 +40,7 @@
         <property name="onCommentFormat" value="CSON\: ([\w\|]+)"/>
     </module>
     <module name="SuppressionFilter">
-        <property name="file" value="https://raw.githubusercontent.com/jimmyblylee/EZ.JWAF-Rule/master/dist/checkstyle/suppressions.xml"/>
+        <property name="file" value="suppressions.xml"/>
     </module>
     <module name="SuppressWarningsFilter"/>
     <module name="SuppressWithNearbyCommentFilter">
@@ -51,12 +51,12 @@
 
     <!-- Headers -->
     <module name="Header">
-        <property name="headerFile" value="https://raw.githubusercontent.com/jimmyblylee/EZ.JWAF-Rule/master/dist/checkstyle/java.header"/>
+        <property name="headerFile" value="java.header"/>
         <property name="fileExtensions" value="java"/>
         <property name="id" value="header"/>
     </module>
     <module name="RegexpHeader">
-        <property name="headerFile" value="https://raw.githubusercontent.com/jimmyblylee/EZ.JWAF-Rule/master/dist/checkstyle/java_regexp.header"/>
+        <property name="headerFile" value="java_regexp.header"/>
         <property name="fileExtensions" value="java"/>
     </module>
 
