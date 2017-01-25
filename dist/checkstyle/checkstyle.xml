@@ -40,7 +40,7 @@
         <property name="onCommentFormat" value="CSON\: ([\w\|]+)"/>
     </module>
     <module name="SuppressionFilter">
-        <property name="file" value="suppressions.xml"/>
+        <property name="file" value="https://raw.githubusercontent.com/jimmyblylee/EZ.JWAF-Rule/master/dist/checkstyle/suppressions.xml"/>
     </module>
     <module name="SuppressWarningsFilter"/>
     <module name="SuppressWithNearbyCommentFilter">
@@ -51,12 +51,12 @@
 
     <!-- Headers -->
     <module name="Header">
-        <property name="headerFile" value="java.header"/>
+        <property name="headerFile" value="https://raw.githubusercontent.com/jimmyblylee/EZ.JWAF-Rule/master/dist/checkstyle/java.header"/>
         <property name="fileExtensions" value="java"/>
         <property name="id" value="header"/>
     </module>
     <module name="RegexpHeader">
-        <property name="headerFile" value="java_regexp.header"/>
+        <property name="headerFile" value="https://raw.githubusercontent.com/jimmyblylee/EZ.JWAF-Rule/master/dist/checkstyle/java_regexp.header"/>
         <property name="fileExtensions" value="java"/>
     </module>
 
