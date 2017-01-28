@@ -271,8 +271,8 @@
         <module name="VariableDeclarationUsageDistance"/>
 
         <!-- Imports -->
-        <module name="AvoidStarImport"/>
         <!--
+        <module name="AvoidStarImport"/>
         <module name="AvoidStaticImport"/>
         -->
         <module name="CustomImportOrder">
